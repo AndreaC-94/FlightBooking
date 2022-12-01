@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.solera.passenger.entities.Passenger;
 import com.solera.passenger.services.PassengerService;
 
+import jakarta.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("/passenger")
 public class PassengerController {
@@ -30,9 +32,8 @@ public class PassengerController {
         }
     }
 
-    @GetMapping
-    @RequestMapping("/getPassenger")
-    public ResponseEntity<?> getPassenger(@RequestBody String id){
+    @GetMapping(value = "/getPassenger/{id}")
+    public ResponseEntity<?> getPassenger(@PathParam ("id") String id){
         try{
             Passenger pass = passengerService.getPassenger(id);
             return new ResponseEntity<Passenger>(pass, HttpStatus.OK);

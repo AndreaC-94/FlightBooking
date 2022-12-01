@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.solera.booking.common.Flight;
+import com.solera.booking.common.Passenger;
 import com.solera.booking.common.PrenotationRequest;
+import com.solera.booking.entities.Prenotation;
 import com.solera.booking.repositories.PrenotationRepository;
 
 @Service
@@ -22,13 +24,14 @@ public class PrenotationService {
     private RestTemplate restTemplate;
     
     public String createPrenotation(PrenotationRequest prenotation) {
-        System.out.println("before the call! flight id: " + prenotation.getFlightId());
-
         Flight flight = restTemplate
         .getForObject("http://localhost:8081/flight/getFlight/" + prenotation.getFlightId(), Flight.class);
+        Passenger passenger = restTemplate
+        .getForObject("http://localhost:8082/passenger/getPassenger/" + prenotation.getPassengerId(), Passenger.class);
 
-        System.out.println("Your flight is: " + flight.getFlightId());
-        return null;
+        Prenotation prenotationSave = new Prenotation(flight, passenger);
+        prenotationRepository.save(prenotationSave);
+        return prenotationSave.getBookId();
     }
 
     //restTemplate.postForObject("url", "requested body", response state);
