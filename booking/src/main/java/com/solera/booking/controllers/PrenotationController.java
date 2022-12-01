@@ -21,8 +21,9 @@ public class PrenotationController {
     @PostMapping("/createPrenotation")
     public ResponseEntity<?> createPrenotation(@RequestBody PrenotationRequest prenotation){
         try{
+            System.out.println("Controller, id: " +prenotation.getFlightId());
             String msg = prenotationService.createPrenotation(prenotation);
-            return new ResponseEntity<String>(msg, HttpStatus.CREATED);
+            return new ResponseEntity<String>(msg, HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
         }

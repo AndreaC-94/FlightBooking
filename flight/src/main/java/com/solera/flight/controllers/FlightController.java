@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,9 +68,8 @@ public class FlightController {
         }
     }
 
-    @GetMapping
-    @RequestMapping("/getFlight")
-    public ResponseEntity<?> getFlight(@RequestBody String id){
+    @GetMapping(value = "/getFlight/{id}")//, consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> getFlight(@PathVariable ("id") String id){//@RequestBody String id){
         try{
             Flight flight = flightService.getFlight(id);
             return new ResponseEntity<Flight>(flight, HttpStatus.OK);

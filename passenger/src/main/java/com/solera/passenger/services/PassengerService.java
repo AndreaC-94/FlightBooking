@@ -13,8 +13,10 @@ public class PassengerService {
     private PassengerRepository passengerRepository;
 
     public String createPassenger(Passenger passenger) {
-        passengerRepository.save(passenger);
-        return "The passenger has been saved correctly!";
+        Passenger passenger2 = new Passenger(passenger.getFirstName(), passenger.getLastName(), passenger.getNationality(),
+        passenger.getDocuments(), passenger.getAge(), passenger.isHasLuggage());
+        passengerRepository.save(passenger2);
+        return passenger2.getId();
     }
 
     public Passenger getPassenger(String id) throws Exception {

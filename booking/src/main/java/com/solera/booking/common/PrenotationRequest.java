@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PrenotationRequest {
-    private String flightid;
+    private String flightId;
     private String passengerId;
 }
